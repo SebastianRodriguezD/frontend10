@@ -18,7 +18,8 @@ export const Header = () => {
 
   aLogo.className = 'aLogo'
 
-  logo.src = './src/assets/7aZlNY-LogoMakr.png'
+  logo.src =
+    'https://res.cloudinary.com/dpqksttwy/image/upload/v1725192120/Proyecto10/7aZlNY-LogoMakr_vkpdd3.png'
   logo.alt = 'Logo'
   logo.className = 'logo'
 
