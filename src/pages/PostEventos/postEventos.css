@@ -1,0 +1,21 @@
+#PublicarEvento {
+  height: 80svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+#PublicarEvento button {
+  margin-top: 10px;
+  font-size: 15px;
+
+  background-color: var(--10-segundo-color);
+  color: white;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 839px) {
+}

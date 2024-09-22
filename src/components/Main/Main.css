@@ -1,0 +1,9 @@
+main {
+  min-height: 92svh;
+  background-image: url(https://res.cloudinary.com/dpqksttwy/image/upload/v1725192130/Proyecto10/NcdG9mK3PBY_ey0nzt.png);
+  background-size: cover; /* Asegura que la imagen cubra todo el fondo */
+  background-position: center; /* Centra la imagen en el fondo */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  width: 100%; /* Ajusta el ancho del div */
+  height: 400px; /* Ajusta la altura del div */
+}

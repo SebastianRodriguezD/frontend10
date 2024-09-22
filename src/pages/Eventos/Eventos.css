@@ -1,0 +1,106 @@
+#eventos {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px;
+  overflow: auto;
+  max-height: 80svh;
+}
+
+.evento {
+  width: 400px;
+  height: auto;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  background-color: var(--10-segundo-color);
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.evento img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+
+.evento h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.evento p {
+  padding: 5px;
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.evento .descripcion {
+  margin: 5px;
+  display: none;
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.evento .main-button {
+  background-color: var(--color-principal);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.evento .main-button:hover {
+  background-color: var(--color-hover); /* Cambia el color al hacer hover */
+}
+
+.evento .checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.evento input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.asistencia {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.asistencia input[type='checkbox'] {
+  margin: 0;
+}
+
+.asistencia span {
+  margin-left: 8px; /* Ajusta este valor según sea necesario */
+  font-size: 16px; /* Ajusta el tamaño del texto según sea necesario */
+}
+
+@media screen and (max-width: 839px) {
+  .evento h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}

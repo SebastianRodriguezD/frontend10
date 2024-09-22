@@ -1,0 +1,26 @@
+#Home {
+  min-height: 92svh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.epoca {
+  color: var(--10-segundo-color);
+  font-size: 50px;
+}
+
+.fest {
+  color: var(--10-tercer-);
+  font-size: 50px;
+}
+
+#Home h2 {
+  color: var(--10-tercer-);
+}
+
+.divButton-Home button {
+  color: var(--10-tercer-);
+  margin: 10px;
+}

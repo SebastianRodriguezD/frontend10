@@ -1,0 +1,9 @@
+.main-button {
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 15px;
+  background-color: var(--10-segundo-color);
+  color: var(--10-bg-color);
+  border: none;
+  cursor: pointer;
+}

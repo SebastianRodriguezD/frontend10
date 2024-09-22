@@ -1,0 +1,9 @@
+.registro-form {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 30px;
+  gap: 10px;
+  background-color: white;
+  border: 2px solid var(--10-segundo-color);
+}
