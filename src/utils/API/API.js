@@ -1,4 +1,4 @@
-const url = 'https://backend10.vercel.app/'
+const url = 'https://backend10.vercel.app'
 
 export const API = async ({
   endpoint,
@@ -18,9 +18,7 @@ export const API = async ({
     headers
   })
 
-  // Verifica si la respuesta está OK antes de procesarla
   const data = await res.json()
 
-  // Retorna tanto el estado de la respuesta como los datos
   return { ok: res.ok, status: res.status, data }
 }
