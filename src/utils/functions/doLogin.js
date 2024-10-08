@@ -4,7 +4,6 @@ import { eventos } from '../../pages/Eventos/Eventos'
 
 export const doLogin = async (e) => {
   e.preventDefault()
-
   const existingToken = localStorage.getItem('token')
   if (existingToken) {
     alert('Ya hay una sesión activa.')
@@ -21,7 +20,6 @@ export const doLogin = async (e) => {
   loadingElement.textContent = 'Cargando...'
   loadingElement.className = 'loading'
   document.body.appendChild(loadingElement)
-
   try {
     const res = await API({
       endpoint: '/users/login',
@@ -31,6 +29,7 @@ export const doLogin = async (e) => {
 
     if (res && res.data && res.data.token) {
       localStorage.setItem('token', res.data.token)
+      localStorage.setItem('userId', res.data.user._id)
 
       alert('Inicio de sesión con éxito.')
       navigate(e, { path: '/eventos', page: eventos })

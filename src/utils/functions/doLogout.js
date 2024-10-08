@@ -3,10 +3,12 @@ import { navigate } from './navigate'
 
 export const doLogout = (e) => {
   e.preventDefault()
-
   localStorage.removeItem('token')
+  localStorage.removeItem('userId')
+  localStorage.removeItem('favoritos')
 
-  alert('Has cerrado sesión con éxito.')
+  alert('Sesión cerrada con éxito.')
 
+  // Redirigir al usuario a la página de login o la página que desees
   navigate(e, { path: '/login', page: Login })
 }

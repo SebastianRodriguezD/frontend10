@@ -4,10 +4,12 @@ import { Button } from '../../components/Button/Button'
 import './Eventos.css'
 import { navigate } from '../../utils/functions/navigate'
 import { Login } from '../Login/Login'
+import { removeFavoritos } from '../../utils/functions/removeFavoritos'
+import { addFavoritos } from '../../utils/functions/addfavoritos'
+import { loadFavoritos } from '../../utils/functions/loadeventos'
 
 export const eventos = async () => {
   const div = crearPagina('eventos')
-
   const loadingElement = document.createElement('div')
   loadingElement.textContent = 'Cargando Eventos...'
   loadingElement.className = 'loading'
@@ -25,8 +27,11 @@ export const eventos = async () => {
 
     const eventosData = res.data
 
-    const asistenciasConfirmadas =
-      JSON.parse(localStorage.getItem('asistencias')) || {}
+    const favoritosIds = await loadFavoritos()
+    const favoritos = favoritosIds.reduce((acc, eventoId) => {
+      acc[eventoId] = true
+      return acc
+    }, {})
 
     for (const evento of eventosData) {
       if (!evento.titulo) {
@@ -68,50 +73,48 @@ export const eventos = async () => {
       })
       eventDiv.appendChild(masInfoButton)
 
-      const confirmarAsistencia = document.createElement('input')
-      confirmarAsistencia.type = 'checkbox'
-      const checkboxTitle = `asistencia-${evento.titulo.replace(/\s+/g, '-')}`
-      confirmarAsistencia.id = checkboxTitle
+      const favoritoButton = Button({
+        text: favoritos[evento._id]
+          ? 'Cancelar Asistencia'
+          : 'Confirmar Asistencia',
+        fnc: async (e) => {
+          const existingToken = localStorage.getItem('token')
 
-      confirmarAsistencia.checked =
-        asistenciasConfirmadas[evento.titulo] || false
+          if (!existingToken) {
+            alert('Debes iniciar sesión para gestionar favoritos.')
+            e.preventDefault()
+            navigate(e, { path: '/login', page: Login })
+            return
+          }
 
-      const asistenciaDiv = document.createElement('div')
-      asistenciaDiv.classList.add('asistencia')
-
-      const textoAsistencia = document.createElement('span')
-      textoAsistencia.textContent = 'Asistir'
-      textoAsistencia.style.marginLeft = '8px'
-
-      confirmarAsistencia.addEventListener('change', async (e) => {
-        const existingToken = localStorage.getItem('token')
-
-        if (!existingToken) {
-          alert('Debes iniciar sesión para confirmar tu asistencia.')
-
-          e.target.checked = false
-          navigate(e, { path: '/login', page: Login })
-          return
+          try {
+            if (favoritos[evento._id]) {
+              await removeFavoritos(evento._id)
+              delete favoritos[evento._id]
+              favoritoButton.textContent = 'Confirmar Asistencia'
+              alert('Asistencia al evento cancelada.')
+            } else {
+              await addFavoritos(evento._id)
+              favoritos[evento._id] = true
+              favoritoButton.textContent = 'Cancelar Asistencia'
+              alert('Asistencia al evento confirmada.')
+            }
+          } catch (error) {
+            console.error('Error en la operación de favoritos:', error)
+            alert(
+              'Ocurrió un error al procesar tu solicitud. Intenta de nuevo.'
+            )
+          }
         }
-
-        if (e.target.checked) {
-          alert('¡Asistencia confirmada para el evento: ' + evento.titulo + '!')
-          asistenciasConfirmadas[evento.titulo] = true
-        } else {
-          alert('Has cancelado la asistencia para el evento: ' + evento.titulo)
-          delete asistenciasConfirmadas[evento.titulo]
-        }
-
-        localStorage.setItem(
-          'asistencias',
-          JSON.stringify(asistenciasConfirmadas)
-        )
       })
 
-      asistenciaDiv.appendChild(confirmarAsistencia)
-      asistenciaDiv.appendChild(textoAsistencia)
+      eventDiv.appendChild(favoritoButton)
 
-      eventDiv.appendChild(asistenciaDiv)
+      if (favoritos[evento._id]) {
+        favoritoButton.textContent = 'Cancelar Asistencia'
+      } else {
+        favoritoButton.textContent = 'Confirmar Asistencia'
+      }
 
       div.appendChild(eventDiv)
     }
